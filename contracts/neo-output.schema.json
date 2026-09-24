@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/neo/contracts/neo-output.schema.json",
+  "title": "NEO output payload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record", "metadata"],
+  "properties": {
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["companyName", "locationName", "clientLocationId", "addressLine1", "addressNumber", "postalCode", "city", "country", "latitude", "longitude", "buildingValue", "machineryEquipment", "contentsValue", "stockSuppliesValue", "otherPdValue", "biValueReported", "biOther", "biType", "numberOfWorkingDays", "currency", "occupancy", "constructionYear", "floorArea", "geocodingStatus", "sourceRowReference"],
+      "properties": {
+        "companyName": { "type": ["string", "null"] },
+        "locationName": { "type": ["string", "null"] },
+        "clientLocationId": { "const": "" },
+        "addressLine1": { "type": ["string", "null"] },
+        "addressNumber": { "type": ["string", "null"] },
+        "postalCode": { "type": ["string", "null"] },
+        "city": { "type": ["string", "null"] },
+        "country": { "type": ["string", "null"] },
+        "latitude": { "type": ["number", "null"] },
+        "longitude": { "type": ["number", "null"] },
+        "buildingValue": { "type": ["number", "null"] },
+        "machineryEquipment": { "type": ["number", "null"] },
+        "contentsValue": { "type": ["number", "null"] },
+        "stockSuppliesValue": { "type": ["number", "null"] },
+        "otherPdValue": { "type": ["number", "null"] },
+        "biValueReported": { "type": ["number", "null"] },
+        "biOther": { "type": ["number", "null"] },
+        "biType": { "const": "Loss of gross profit" },
+        "numberOfWorkingDays": { "const": 365 },
+        "currency": { "type": ["string", "null"] },
+        "occupancy": { "type": ["string", "null"] },
+        "constructionYear": { "type": ["integer", "null"] },
+        "floorArea": { "type": ["number", "null"] },
+        "geocodingStatus": { "type": ["string", "null"] },
+        "sourceRowReference": { "type": "string", "minLength": 1 }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["trace"],
+      "properties": {
+        "trace": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/neo/contracts/mapping-plan.schema.json",
+  "title": "Reusable broker to NEO mapping plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["planId", "workbookId", "mappings", "ambiguities"],
+  "properties": {
+    "planId": { "type": "string", "minLength": 1 },
+    "workbookId": { "type": "string", "minLength": 1 },
+    "mappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["mappingId", "targetField", "source", "decision", "confidence", "trace"],
+        "properties": {
+          "mappingId": { "type": "string" },
+          "targetField": { "type": "string" },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind"],
+            "properties": {
+              "kind": { "enum": ["column", "constant", "none"] },
+              "worksheet": { "type": "string" },
+              "column": { "type": "string" },
+              "constant": {}
+            }
+          },
+          "decision": { "type": "string" },
+          "transformation": { "type": "string" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "calculationMetadata": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "formula": { "type": ["string", "null"] },
+              "inputs": { "type": ["array", "null"], "items": { "type": "string" } },
+              "unit": { "type": ["string", "null"] },
+              "reportedCurrency": { "type": ["string", "null"] },
+              "reportingPeriod": { "type": ["string", "null"] },
+              "evidence": { "type": ["array", "null"], "items": { "type": "string" } }
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "reportedCurrency": { "type": ["string", "null"] },
+              "reportingPeriod": { "type": ["string", "null"] }
+            }
+          },
+          "trace": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["evidence"],
+            "properties": {
+              "evidence": { "type": "array", "items": { "type": "string" } },
+              "sourceRows": { "type": "array", "items": { "type": "integer", "minimum": 1 } }
+            }
+          }
+        }
+      }
+    },
+    "ambiguities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ambiguityId", "reason", "status"],
+        "properties": {
+          "ambiguityId": { "type": "string" },
+          "targetField": { "type": "string" },
+          "reason": { "type": "string" },
+          "evidence": { "type": "array", "items": { "type": "string" } },
+          "status": { "enum": ["open", "resolved", "NEEDS_NEO_VALIDATION"] }
+        }
+      }
+    }
+  }
+}

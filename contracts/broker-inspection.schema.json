@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/neo/contracts/broker-inspection.schema.json",
+  "title": "Broker workbook inspection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["workbookId", "worksheets"],
+  "properties": {
+    "workbookId": { "type": "string", "minLength": 1 },
+    "sourceFileName": { "type": "string" },
+    "sourceFileHash": { "type": "string" },
+    "worksheets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "index", "headers", "rows"],
+        "properties": {
+          "name": { "type": "string" },
+          "index": { "type": "integer", "minimum": 0 },
+          "headers": { "type": "array", "items": { "type": "string" } },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["rowNumber", "values"],
+              "properties": {
+                "rowNumber": { "type": "integer", "minimum": 1 },
+                "values": { "type": "object", "additionalProperties": true },
+                "formulas": { "type": "object", "additionalProperties": { "type": "string" } }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

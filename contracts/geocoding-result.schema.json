@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/neo/contracts/geocoding-result.schema.json",
+  "title": "Traceable Google geocoding result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["originalBrokerAddress", "sourceAddressCandidate", "googleResponse", "validation"],
+  "properties": {
+    "originalBrokerAddress": { "type": "string" },
+    "sourceAddressCandidate": { "type": "string" },
+    "googleResponse": { "type": ["object", "null"], "additionalProperties": true },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["googleType", "value"],
+        "properties": {
+          "googleType": { "type": "string" },
+          "value": { "type": "string" },
+          "source": { "enum": ["google"] }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "isStreetLevel"],
+      "properties": {
+        "level": { "enum": ["none", "locality", "postalCode", "street"] },
+        "isStreetLevel": { "type": "boolean" },
+        "reason": { "type": "string" }
+      }
+    }
+  }
+}
